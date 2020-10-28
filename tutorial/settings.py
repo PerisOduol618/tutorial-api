@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'mytutor',
     'cloudinary',
     'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,11 @@ cloudinary.config(
   api_key = "447468715252465", 
   api_secret = "VSquGjV4IRTcJID7brmZlvBG4nY" 
 )
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+
