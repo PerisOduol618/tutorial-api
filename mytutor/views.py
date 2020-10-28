@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Tutorial
@@ -26,4 +26,17 @@ class TutorialList(APIView):
         return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
+
+class TutoriaDescription(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    def get_tutorial(self,pk):
+        try:
+            return Tutorial.objects.get(pk=pk)
+        except Tutorial.DoesNotExist:
+            return Http404
+
+    def get(self,request,pk,formart=None):
+        tutorial = self.get_tutorial(pk)
+        serializer =  TutorialSerializer(tutorial)
+        return Response(serializer.data)
 
