@@ -35,8 +35,17 @@ class TutoriaDescription(APIView):
         except Tutorial.DoesNotExist:
             return Http404
 
-    def get(self,request,pk,formart=None):
+    def get(self,request,pk,format=None):
         tutorial = self.get_tutorial(pk)
         serializer =  TutorialSerializer(tutorial)
         return Response(serializer.data)
 
+    def put(self,request,pk,format=None):
+        tutorial = self.get_tutorial(pk)
+        serializer =  TutorialSerializer(tutorial,request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        
