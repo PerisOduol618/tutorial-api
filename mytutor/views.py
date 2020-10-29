@@ -48,4 +48,8 @@ class TutoriaDescription(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-        
+    
+    def delete(self, request, pk, format=None):
+        tutorial = self.get_tutorial(pk)
+        tutorial.delete()
+        return Response(status=status.HTTP_205_RESET_CONTENT)

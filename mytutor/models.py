@@ -13,4 +13,5 @@ class Tutorial(models.Model):
     published = models.BooleanField()
     date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_created=True)
-    
+
+
